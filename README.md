@@ -1,3 +1,3 @@
 # react-journal-app
 
-React Material UI + Redux + Firebase
+React Material UI + Redux + Firebase + Firestore
