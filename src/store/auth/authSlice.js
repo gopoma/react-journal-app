@@ -15,10 +15,10 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-
+            state.status = types.authenticated;
         },
         logout: (state, action) => {
-
+            state.status = types.notAuthenticated;
         },
         checkingCredentials: (state) => {
             state.status = types.checking;

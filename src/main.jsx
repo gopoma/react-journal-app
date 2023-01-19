@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { JournalApp } from "./JournalApp";
 import './index.css';
 
+import "./firebase/config";
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={ store }>
