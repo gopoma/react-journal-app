@@ -1,4 +1,5 @@
 import { 
+    createUserWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup 
 } from "firebase/auth";
@@ -22,6 +23,23 @@ export const signInWithGoogle = async () => {
         return {
             success: false,
             errorMessage
+        };
+    }
+};
+
+export const doLocalRegistration = async ({email, password, displayName}) => {
+    try {
+        const result = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
+        const { uid, photoURL } = result.user;
+
+        return {
+            success: true,
+            uid, photoURL, email, displayName
+        };
+    } catch(error) {
+        return {
+            success: false,
+            errorMessage: error.message
         };
     }
 };
