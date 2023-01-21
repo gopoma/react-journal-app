@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { Google } from "@mui/icons-material";
 import {
+    Alert,
     Button, 
     Grid, 
     Link, 
@@ -10,28 +11,29 @@ import {
     Typography
 } from "@mui/material";
 
-import { types } from "../../store/auth";
+import { startLocalLogin, types } from "../../store/auth";
 import { AuthLayout } from "../layout";
 import { useForm } from "../../hooks";
 import { 
-    startLocalSignIn,
     startGoogleSignIn
 } from "../../store/auth";
 
+const initialFormState = {
+    email: "",
+    password: ""
+};
+
 export const LoginPage = () => {
-    const { status } = useSelector(state => state.auth);
+    const { status, errorMessage } = useSelector(state => state.auth);
     const isCheckingAuthentication = useMemo(() => status === types.checking, [status]);
 
     const dispatch = useDispatch();
-    const { email, password, onInputChange } = useForm({
-        email: "gopoma@gmail.com",
-        password: "123456"
-    });
+    const { formState, email, password, onInputChange } = useForm(initialFormState);
 
     const onLoginSubmit = (event) => {
         event.preventDefault();
 
-        dispatch(startLocalSignIn(email, password));
+        dispatch(startLocalLogin(formState));
     };
 
     const onGoogleSignIn = () => {
@@ -48,7 +50,7 @@ export const LoginPage = () => {
                             type="email"
                             placeholder="Enter an email"
                             fullWidth
-                            name={ email }
+                            name="email"
                             value={ email }
                             onChange={ onInputChange }
                         />
@@ -59,13 +61,21 @@ export const LoginPage = () => {
                             type="password"
                             placeholder="Enter a password"
                             fullWidth
-                            name={ password }
+                            name="password"
                             value={ password }
                             onChange={ onInputChange }
                         />
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{mb:2, mt:1}}>
+                    <Grid item 
+                        xs={12}
+                        display={Boolean(errorMessage) ? "" : "none"}
+                    >
+                        <Alert severity="error">
+                            {errorMessage}
+                        </Alert>
+                    </Grid>
                     <Grid item xs={12} sm={6}>
                         <Button 
                             disabled={isCheckingAuthentication}
