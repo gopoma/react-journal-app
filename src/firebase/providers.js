@@ -64,3 +64,7 @@ export const doLocalLogin = async ({email, password}) => {
         };
     }
 };
+
+export const doLogout = async () => {
+    return await FirebaseAuth.signOut();
+};

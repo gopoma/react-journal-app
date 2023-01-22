@@ -1,5 +1,5 @@
 import { checkingCredentials, login, logout } from "./";
-import { doLocalLogin, doLocalRegistration, signInWithGoogle } from "../../firebase/providers";
+import { doLocalLogin, doLocalRegistration, doLogout, signInWithGoogle } from "../../firebase/providers";
 
 export const startGoogleSignIn = () => {
     return async (dispatch) => {
@@ -33,5 +33,13 @@ export const startLocalLogin = ({email, password}) => {
         if(!result.success) return dispatch(logout(result));
 
         dispatch(login(result));
+    };
+};
+
+export const startLogout = () => {
+    return async (dispatch) => {
+        await doLogout();
+
+        dispatch(logout());
     };
 };
