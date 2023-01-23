@@ -1,5 +1,6 @@
 import { checkingCredentials, login, logout } from "./";
 import { doLocalLogin, doLocalRegistration, doLogout, signInWithGoogle } from "../../firebase/providers";
+import { clearoutNotes } from "../journal/journalSlice";
 
 export const startGoogleSignIn = () => {
     return async (dispatch) => {
@@ -40,6 +41,7 @@ export const startLogout = () => {
     return async (dispatch) => {
         await doLogout();
 
+        dispatch(clearoutNotes());
         dispatch(logout());
     };
 };
