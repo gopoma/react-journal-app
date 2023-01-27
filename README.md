@@ -1,3 +1,3 @@
 # react-journal-app
 
-React + Hooks + Material UI + Redux + Firebase + Firestore + Cloudinary
+React + Hooks + React Router DOM + Material UI + Redux + Firebase + Firestore + Cloudinary
